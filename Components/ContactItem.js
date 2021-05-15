@@ -8,11 +8,9 @@ import {
   Platform
 } from 'react-native';
 
-const ContactItem = () => {
+const ContactItem = ({ onPress }) => {
   return (
-    <TouchableOpacity
-      style={styles.itemContainer}
-      onPress={() => console.log('item press')}>
+    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.itemLeftContainer}>
         <Image
           style={styles.avatar}
