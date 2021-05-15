@@ -1,70 +1,79 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ContactItem from './ContactItem';
+import Spacing from './Spacing';
+import Label from './Label';
+import { styles } from './Styles';
 
+const data = [
+  {
+    number: '1111',
+    date: 'Yesterday'
+  },
+  {
+    number: '2222',
+    date: 'Yesterday'
+  },
+  {
+    number: '3333',
+    date: 'Yesterday'
+  },
+  {
+    number: '4444',
+    date: 'Yesterday'
+  }
+];
 class Body extends Component {
-	render() {
-		return (
-			<View style={styles.container}>
-				<View style={styles.labelContainer}>
-					<Text style={styles.label}>Yesterday</Text>
-				</View>
-				<ContactItem />
-				<View style={styles.labelContainer}>
-					<Text style={styles.label}>Older</Text>
-				</View>
-				<ContactItem />
-				<View style={styles.spacing} />
-				<ContactItem />
-				<View style={styles.spacing} />
-				<ContactItem />
-			</View>
-		);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      increment: 0,
+      numberPressed: null
+    };
+  }
+
+  handleItemPress = (number, date) => {
+    console.log('number', number);
+    console.log('date', date);
+    this.setState({
+      numberPressed: number
+    });
+  };
+
+  handleIncrement = () => {
+    const { increment } = this.state;
+
+    this.setState({
+      increment: increment + 1
+    });
+  };
+
+  render() {
+    const { increment, numberPressed } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <Label title="Yesterday" />
+        <ContactItem onPress={this.handleIncrement} />
+        <Label title="Older" />
+        {data.map(item => {
+          return (
+            <>
+              <ContactItem
+                number={item.number}
+                date={item.date}
+                onPress={this.handleItemPress}
+              />
+              <Spacing />
+            </>
+          );
+        })}
+        {numberPressed !== null && (
+          <Text>You are pressing the phone number: {numberPressed}</Text>
+        )}
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-	container: {
-		paddingHorizontal: 15,
-		backgroundColor: '#FAFAFA',
-		height: '100%'
-	},
-	itemLeftContainer: {
-		flexDirection: 'row'
-	},
-	contactInfo: {
-		paddingLeft: 10
-	},
-	labelContainer: {
-		paddingVertical: 15
-	},
-	avatar: {
-		width: 35,
-		height: 35
-	},
-	spacing: {
-		height: 10,
-		width: '100%'
-	},
-	phone: {
-		width: 20,
-		height: 20
-	},
-	itemContainer: {
-		backgroundColor: '#FFF',
-		height: 60,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		paddingHorizontal: 10,
-		shadowColor: 'rgba(0,0,0, .4)',
-		shadowOffset: { height: 1, width: 1 },
-		shadowOpacity: 1,
-		shadowRadius: 1
-	},
-	label: {
-		color: '#6E6E6E',
-		fontWeight: 'bold'
-	}
-});
 export default Body;
