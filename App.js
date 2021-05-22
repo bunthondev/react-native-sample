@@ -1,17 +1,20 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Body from './Components/Body';
-import { Header } from './Components/Header';
+import { HeaderComponent } from './Components/Header';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Header />
-        <Body />
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <HeaderComponent />
+          <Body />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
+
 import ContactItem from './ContactItem';
-import Spacing from './Spacing';
 import Label from './Label';
 import { styles } from './Styles';
 
 const data = [
   {
     number: '1111',
-    date: 'Yesterday'
+    date: 'Yesterday',
+    name: 'MD'
   },
   {
     number: '2222',
-    date: 'Yesterday'
+    date: 'Yesterday',
+    name: 'AB'
   },
   {
     number: '3333',
-    date: 'Yesterday'
+    date: 'Yesterday',
+    name: 'TH'
   },
   {
     number: '4444',
-    date: 'Yesterday'
+    name: 'EB'
   }
 ];
 class Body extends Component {
@@ -49,23 +53,27 @@ class Body extends Component {
   };
 
   render() {
-    const { increment, numberPressed } = this.state;
+    const { numberPressed } = this.state;
 
     return (
       <View style={styles.container}>
         <Label title="Yesterday" />
         <ContactItem onPress={this.handleIncrement} />
         <Label title="Older" />
-        {data.map(item => {
+        {data.map((item, index) => {
           return (
-            <>
-              <ContactItem
-                number={item.number}
-                date={item.date}
-                onPress={this.handleItemPress}
+            <ListItem key={index} bottomDivider>
+              <Avatar
+                rounded
+                title={item.name}
+                containerStyle={styles.avatar}
               />
-              <Spacing />
-            </>
+              <ListItem.Content>
+                <ListItem.Title>{item.number}</ListItem.Title>
+                <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
           );
         })}
         {numberPressed !== null && (

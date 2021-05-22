@@ -15,14 +15,6 @@ export const styles = StyleSheet.create({
   labelContainer: {
     paddingVertical: 15
   },
-  avatar: {
-    width: 35,
-    height: 35
-  },
-  spacing: {
-    height: 10,
-    width: '100%'
-  },
   phone: {
     width: 20,
     height: 20
@@ -42,5 +34,8 @@ export const styles = StyleSheet.create({
   label: {
     color: '#6E6E6E',
     fontWeight: 'bold'
+  },
+  avatar: {
+    backgroundColor: 'gray'
   }
 });
