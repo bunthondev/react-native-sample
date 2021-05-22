@@ -24,6 +24,7 @@ const data = [
   },
   {
     number: '4444',
+    date: 'Yesterday',
     name: 'EB'
   }
 ];
@@ -37,19 +38,14 @@ class Body extends Component {
   }
 
   handleItemPress = (number, date) => {
-    console.log('number', number);
-    console.log('date', date);
     this.setState({
       numberPressed: number
     });
   };
 
-  handleIncrement = () => {
-    const { increment } = this.state;
-
-    this.setState({
-      increment: increment + 1
-    });
+  handleDetail = item => {
+    const { navigation } = this.props;
+    navigation.navigate('Detail', { item });
   };
 
   render() {
@@ -58,11 +54,15 @@ class Body extends Component {
     return (
       <View style={styles.container}>
         <Label title="Yesterday" />
-        <ContactItem onPress={this.handleIncrement} />
+        <ContactItem onPress={this.handleDetail} />
         <Label title="Older" />
         {data.map((item, index) => {
           return (
-            <ListItem key={index} bottomDivider>
+            <ListItem
+              key={index}
+              bottomDivider
+              onPress={() => this.handleDetail(item)}
+              containerStyle={{ background: 'red' }}>
               <Avatar
                 rounded
                 title={item.name}
